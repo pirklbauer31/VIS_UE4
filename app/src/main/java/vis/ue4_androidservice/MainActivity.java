@@ -1,7 +1,10 @@
 package vis.ue4_androidservice;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -22,6 +25,8 @@ public class MainActivity extends AppCompatActivity {
     private static final int MY_PERMISSION_ACCESS_FINE_LOCATION = 2;
     private static final int MY_PERMISSION_BLUETOOTH_ADMIN = 0;
     private static final int MY_PERMISSION_INTERNET = 1;
+
+    public static final String MESSAGE_KEY = "MainActivityA_KEY";
 
     private ListView mDevices;
 
@@ -45,7 +50,6 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), itemValue, Toast.LENGTH_SHORT).show();
             }
         });
-
 
     }
 
@@ -94,9 +98,13 @@ public class MainActivity extends AppCompatActivity {
                     MY_PERMISSION_ACCESS_FINE_LOCATION);
         }
 
+        Intent i = new Intent(this, BLEService.class);
+        startService(i); // or stopService(i);
+
     }
 
     private void stopService() {
-
+        Intent i = new Intent(this, BLEService.class);
+        stopService(i); // or stopService(i);
     }
 }
